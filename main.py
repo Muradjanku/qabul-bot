@@ -1,10 +1,17 @@
-from telebot import TeleBot, types
+import telebot
+import os
+from flask import Flask, request
 
-bot = TeleBot("7635242917:AAEV6ocf5rSgqK9VrXjjCpH_-asnUyN2Mz4")
+TOKEN = "7797937191:AAHJBPfOQVKLB0wzMiVKQoncVeTWvSWmyn0"
+WEBHOOK_DOMAIN = "https://cyber-uni-bot.up.railway.app"
 
+bot = telebot.TeleBot(TOKEN)
+app = Flask(__name__)
+
+# Boshlang‘ich menyu
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
     markup.add("ℹ️ Universitet haqida", "📚 Ta’lim yo‘nalishlari")
     markup.add("🎓 O‘quv tizimi", "💰 Grant va stipendiyalar")
     markup.add("🌐 Hamkorlik", "📍Joylashuv")
@@ -13,23 +20,27 @@ def send_welcome(message):
 @bot.message_handler(func=lambda msg: msg.text == "ℹ️ Universitet haqida")
 def university_info(msg):
     bot.send_message(msg.chat.id,
-        "📘 *Cyber University* – O‘zbekistonning raqamli kelajagiga yo‘l ochuvchi zamonaviy oliy ta’lim muassasasi.\n\n"
-        "Tashkil etilgan: 2025-yil 20-yanvar\n"
-        "Asos: [PQ–14-sonli qaror](https://lex.uz/uz/docs/-7332592)\n\n"
-        "🎯 Maqsad: xalqaro raqobatbardosh, innovatsion fikrlaydigan va amaliy ko‘nikmaga ega mutaxassislarni tayyorlash.",
+        "⚙️ *Cyber University* — O‘zbekistonning raqamli kelajagiga yo‘l ochuvchi zamonaviy oliy ta’lim dargohi.\n\n"
+        "📅 *Tashkil etilgan:* 2025-yil 20-yanvar\n"
+        "📄 *Asos:* [PQ–14-sonli qaror](https://lex.uz/uz/docs/-7332592)\n\n"
+        "🎯 *Maqsad:* xalqaro raqobatbardosh, innovatsion fikrlovchi va amaliy ko‘nikmaga ega Kiberxavfsizlik mutaxassislarini tayyorlash.",
         parse_mode='Markdown'
     )
 
 @bot.message_handler(func=lambda msg: msg.text == "📚 Ta’lim yo‘nalishlari")
 def programs_info(msg):
     bot.send_message(msg.chat.id,
-        "📚 *Bakalavriat yo‘nalishlari:*\n"
-        "- Kiberxavfsizlik injiniringi\n"
-        "- Kompyuter injiniringi\n"
-        "- Dasturiy injiniring\n"
-        "- Yurisprudensiya\n"
-        "- Menejment\n"
-        "- Iqtisodiyot",
+        "📚 *Bakalavriat yo‘nalishlari:*\n\n"
+        "1. *Kiberxavfsizlik injiniringi* – Tarmoq, tizim va internet ashyolari xavfsizligi.\n"
+        "2. *Kompyuter injiniringi* – Sun’iy intellekt, algoritmlar, kompyuter tizimlari.\n"
+        "3. *Dasturiy injiniring* – Amaliy matematika, dasturlash va muhandislik.\n"
+        "4. *Yurisprudensiya* – Kiber huquq va raqamli kriminalistika.\n"
+        "5. *Menejment* – Kiberxavfsizlik strategiyasi va risk menejmenti.\n"
+        "6. *Iqtisodiyot* – Raqamli iqtisodiyot, fintech va blockchain asoslari.\n\n"
+        "📚 *Magistratura yo‘nalishlari:*\n\n"
+        "- Axborot xavfsizligi\n"
+        "- Kiber huquq\n\n"
+        "🔗 Batafsil: https://csu.uz/uz/education/programs",
         parse_mode='Markdown'
     )
 
@@ -67,4 +78,27 @@ def partners_info(msg):
 def location_info(msg):
     bot.send_message(msg.chat.id, "📍 Universitet: Toshkent viloyati, Nurafshon shahri.")
 
-bot.infinity_polling()
+# Webhook POST
+@app.route(f'/{TOKEN}', methods=['POST'])
+def webhook():
+    json_str = request.get_data().decode('UTF-8')
+    update = telebot.types.Update.de_json(json_str)
+    bot.process_new_updates([update])
+    return 'OK', 200
+
+# Webhook sozlash
+@app.route('/set_webhook', methods=['GET'])
+def set_webhook():
+    webhook_url = f"{WEBHOOK_DOMAIN}/{TOKEN}"
+    if bot.set_webhook(url=webhook_url):
+        return f"Webhook o‘rnatildi: {webhook_url}"
+    else:
+        return "Webhook o‘rnatilmadi"
+
+@app.route('/', methods=['GET'])
+def index():
+    return "Cyber University bot ishlayapti."
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)

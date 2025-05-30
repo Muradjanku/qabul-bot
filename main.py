@@ -15,8 +15,8 @@ def main_menu_uz():
     markup = ReplyKeyboardMarkup(resize_keyboard=True)
     markup.row("ℹ️ Universitet haqida", "📚 Ta’lim yo‘nalishlari")
     markup.row("🎓 O‘quv tizimi", "💰 Grant va stipendiyalar")
-    markup.row("🌐 Hamkorlik", "📍 Joylashuv")
-    markup.row("📞 Aloqa")
+    markup.row("🌐 Xalqaro hamkorlik", "📍 Joylashuv")
+    markup.row("📞 Aloqa", "↩️ Menyuga qaytish")
     return markup
 
 # Asosiy menyu - Rus
@@ -24,8 +24,8 @@ def main_menu_ru():
     markup = ReplyKeyboardMarkup(resize_keyboard=True)
     markup.row("ℹ️ Об университете", "📚 Образовательные направления")
     markup.row("🎓 Система обучения", "💰 Гранты и стипендии")
-    markup.row("🌐 Сотрудничество", "📍 Локация")
-    markup.row("📞 Контакты")
+    markup.row("🌐 Международное сотрудничество", "📍 Локация")
+    markup.row("📞 Контакты", "↩️ Вернуться в меню")
     return markup
 
 # Tilni saqlash
@@ -50,28 +50,29 @@ def reply_handler(message):
     if lang == "🇺🇿 O‘zbekcha":
         if message.text == "ℹ️ Universitet haqida":
             text = (
-                "📄 *Cyber University haqida:*\n\n"
-                "O‘zbekiston Respublikasi Prezidentining 2025-yil 20-yanvardagi PQ–14-sonli qarori asosida tashkil etilgan.\n"
+                "⚙️ *O‘zbekiston Respublikasi Prezidentining 2025-yil 20-yanvardagi PQ–14-sonli qaroriga asosan, \"Cyber University\" - davlat universiteti tashkil etildi.*\n"
                 "[Qarorni o‘qish](https://lex.uz/uz/docs/-7332592)\n\n"
-                "⚙️ Cyber University — zamonaviy oliy ta’lim dargohi.\n"
-                "✅ *Bosh maqsad:* xalqaro raqobatbardosh kiberxavfsizlik mutaxassislarini tayyorlash."
+                "✅ *Universitetning bosh maqsadi* — xalqaro raqobatbardosh, innovatsion fikrlaydigan va amaliy ko‘nikmaga ega kiberxavfsizlik mutaxassislarini tayyorlashdan iborat."
             )
-            bot.send_message(message.chat.id, text, parse_mode="Markdown", disable_web_page_preview=True)
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", disable_web_page_preview=True, reply_markup=main_menu_uz())
 
         elif message.text == "📚 Ta’lim yo‘nalishlari":
             text = (
-                "*📚 Bakalavriat:*\n"
-                "- Kiberxavfsizlik injiniringi\n"
-                "- Kompyuter injiniringi\n"
-                "- Dasturiy injiniring\n"
-                "- Yurisprudensiya\n"
-                "- Menejment\n"
-                "- Iqtisodiyot\n\n"
+                "*📚 Ta’lim yo‘nalishlari:*\n\n"
+                "*🎓 Bakalavriat:*\n"
+                "• Kiberxavfsizlik injiniringi: Tarmoq va tizim xavfsizligi\n"
+                "• Kiberxavfsizlik injiniringi: Internet ashyolari xavfsizligi\n"
+                "• Kompyuter injiniringi: Sun’iy intellekt\n"
+                "• Dasturiy injiniring: Amaliy matematika va algoritmlashtirish\n"
+                "• Yurisprudensiya: Kiber huquq\n"
+                "• Yurisprudensiya: Raqamli kriminalistika\n"
+                "• Menejment: Kiberxavfsizlik menejmenti\n"
+                "• Iqtisodiyot: Raqamli iqtisodiyot\n\n"
                 "*🎓 Magistratura:*\n"
-                "- Axborot xavfsizligi\n"
-                "- Kiber huquq"
+                "• Axborot xavfsizligi\n"
+                "• Kiber huquq"
             )
-            bot.send_message(message.chat.id, text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
 
         elif message.text == "🎓 O‘quv tizimi":
             text = (
@@ -81,7 +82,7 @@ def reply_handler(message):
                 "- Kredit-modul tizimi\n"
                 "- Amaliyot IT kompaniyalarda"
             )
-            bot.send_message(message.chat.id, text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
 
         elif message.text == "💰 Grant va stipendiyalar":
             text = (
@@ -89,58 +90,68 @@ def reply_handler(message):
                 "- 2025/2026 yili uchun 100 ta davlat granti\n"
                 "- Sanoat hamkorlari stipendiyalari"
             )
-            bot.send_message(message.chat.id, text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
 
-        elif message.text == "🌐 Hamkorlik":
+        elif message.text == "🌐 Xalqaro hamkorlik":
             text = (
                 "*🌐 Xalqaro hamkorlik:*\n"
-                "- AQSH, Xitoy, Yaponiya bilan 2+2, 3+1 dasturlar"
+                "Universitet AQSH, Xitoy va Yaponiya va boshqa xorijiy davlatlarning yetakchi universitetlari bilan hamkorlik qiladi.\n"
+                "Ilg‘or ta’lim dasturlari va xorijiy mutaxassislar jalb etiladi."
             )
-            bot.send_message(message.chat.id, text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
 
         elif message.text == "📍 Joylashuv":
             bot.send_message(
                 message.chat.id,
                 "📍 *Manzil:* Toshkent viloyati, Nurafshon shahri\n"
                 "[Xaritada ko‘rish](https://maps.app.goo.gl/tsgXZ2x8QUos6dSV7)",
-                parse_mode="Markdown"
+                parse_mode="Markdown",
+                reply_markup=main_menu_uz()
             )
 
         elif message.text == "📞 Aloqa":
-            bot.send_message(
-                message.chat.id,
+            text = (
                 "*📞 Aloqa:*\n"
-                "☎️ +998 (55) 888-55-55\n📱 +998 (95) 182-71-17",
-                parse_mode="Markdown"
+                "☎️ Telefon: [+998 (55) 888-55-55](tel:+998558885555)\n"
+                "📱 Telefon: [+998 (95) 182-71-17](tel:+998951827117)\n"
+                "📘 Facebook: [Cyber University](https://www.facebook.com/share/1AUAavip98/?mibextid=wwXIfr)\n"
+                "📸 Instagram: [cyberuni.uz](https://www.instagram.com/cyberuni.uz?igsh=czN4bTRub3ExMGRp)\n"
+                "✈️ Telegram: [cyberuni_uz](https://t.me/cyberuni_uz)"
             )
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
+
+        elif message.text == "↩️ Menyuga qaytish":
+            bot.send_message(message.chat.id, "Asosiy menyuga qaytildi.", reply_markup=main_menu_uz())
+
         else:
             bot.send_message(message.chat.id, "Iltimos, menyudan tanlang.", reply_markup=main_menu_uz())
 
     elif lang == "🇷🇺 Русский":
         if message.text == "ℹ️ Об университете":
             text = (
-                "📄 *О Cyber University:*\n\n"
-                "Создан по решению Президента Узбекистана PQ–14 от 20 января 2025 года.\n"
+                "⚙️ *В соответствии с указом Президента Республики Узбекистан PQ–14 от 20 января 2025 года создан государственный университет \"Cyber University\".*\n"
                 "[Читать указ](https://lex.uz/uz/docs/-7332592)\n\n"
-                "⚙️ Cyber University — современный вуз для цифрового будущего.\n"
-                "✅ *Цель:* подготовка специалистов в области кибербезопасности."
+                "✅ *Основная цель университета* — подготовка конкурентоспособных на международном уровне, инновационно мыслящих и обладающих практическими навыками специалистов по кибербезопасности."
             )
-            bot.send_message(message.chat.id, text, parse_mode="Markdown", disable_web_page_preview=True)
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", disable_web_page_preview=True, reply_markup=main_menu_ru())
 
         elif message.text == "📚 Образовательные направления":
             text = (
-                "*📚 Бакалавриат:*\n"
-                "- Инженерия кибербезопасности\n"
-                "- Компьютерная инженерия\n"
-                "- Программная инженерия\n"
-                "- Юриспруденция\n"
-                "- Менеджмент\n"
-                "- Экономика\n\n"
+                "*📚 Образовательные направления:*\n\n"
+                "*🎓 Бакалавриат:*\n"
+                "• Инженерия кибербезопасности: Сетевая и системная безопасность\n"
+                "• Инженерия кибербезопасности: Безопасность интернета вещей\n"
+                "• Компьютерная инженерия: Искусственный интеллект\n"
+                "• Программная инженерия: Прикладная математика и алгоритмизация\n"
+                "• Юриспруденция: Киберправо\n"
+                "• Юриспруденция: Цифровая криминалистика\n"
+                "• Менеджмент: Менеджмент кибербезопасности\n"
+                "• Экономика: Цифровая экономика\n\n"
                 "*🎓 Магистратура:*\n"
-                "- Информационная безопасность\n"
-                "- Киберправо"
+                "• Информационная безопасность\n"
+                "• Киберправо"
             )
-            bot.send_message(message.chat.id, text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
 
         elif message.text == "🎓 Система обучения":
             text = (
@@ -150,7 +161,7 @@ def reply_handler(message):
                 "- Кредитно-модульная система\n"
                 "- Практика в IT-компаниях"
             )
-            bot.send_message(message.chat.id, text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
 
         elif message.text == "💰 Гранты и стипендии":
             text = (
@@ -158,30 +169,39 @@ def reply_handler(message):
                 "- 100 государственных грантов на 2025/2026 год\n"
                 "- Стипендии от партнёров"
             )
-            bot.send_message(message.chat.id, text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
 
-        elif message.text == "🌐 Сотрудничество":
+        elif message.text == "🌐 Международное сотрудничество":
             text = (
                 "*🌐 Международное сотрудничество:*\n"
-                "- Программы 2+2 и 3+1 с вузами США, Китая и Японии"
+                "Университет сотрудничает с ведущими университетами США, Китая, Японии и других зарубежных стран.\n"
+                "Привлекаются передовые образовательные программы и иностранные специалисты."
             )
-            bot.send_message(message.chat.id, text, parse_mode="Markdown")
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
 
         elif message.text == "📍 Локация":
             bot.send_message(
                 message.chat.id,
                 "📍 *Адрес:* Ташкентская область, город Нурафшан\n"
                 "[Посмотреть на карте](https://maps.app.goo.gl/tsgXZ2x8QUos6dSV7)",
-                parse_mode="Markdown"
+                parse_mode="Markdown",
+                reply_markup=main_menu_ru()
             )
 
         elif message.text == "📞 Контакты":
-            bot.send_message(
-                message.chat.id,
+            text = (
                 "*📞 Контакты:*\n"
-                "☎️ +998 (55) 888-55-55\n📱 +998 (95) 182-71-17",
-                parse_mode="Markdown"
+                "☎️ Телефон: [+998 (55) 888-55-55](tel:+998558885555)\n"
+                "📱 Телефон: [+998 (95) 182-71-17](tel:+998951827117)\n"
+                "📘 Facebook: [Cyber University](https://www.facebook.com/share/1AUAavip98/?mibextid=wwXIfr)\n"
+                "📸 Instagram: [cyberuni.uz](https://www.instagram.com/cyberuni.uz?igsh=czN4bTRub3ExMGRp)\n"
+                "✈️ Telegram: [cyberuni_uz](https://t.me/cyberuni_uz)"
             )
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
+
+        elif message.text == "↩️ Вернуться в меню":
+            bot.send_message(message.chat.id, "Возвращение в главное меню.", reply_markup=main_menu_ru())
+
         else:
             bot.send_message(message.chat.id, "Пожалуйста, выберите из меню.", reply_markup=main_menu_ru())
 

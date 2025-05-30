@@ -14,7 +14,7 @@ def language_menu():
 def main_menu_uz():
     markup = ReplyKeyboardMarkup(resize_keyboard=True)
     markup.row("ℹ️ Universitet haqida", "📚 Ta’lim yo‘nalishlari")
-    markup.row("🎓 O‘quv tizimi", "💰 Grant va stipendiyalar")
+    markup.row("✉️ Murojaat", "🎓 O‘quv tizimi va Grantlar")
     markup.row("🌐 Xalqaro hamkorlik", "📍 Joylashuv")
     markup.row("📞 Aloqa", "↩️ Menyuga qaytish")
     return markup
@@ -74,21 +74,23 @@ def reply_handler(message):
             )
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
 
-        elif message.text == "🎓 O‘quv tizimi":
+        elif message.text == "✉️ Murojaat":
             text = (
-                "*🎓 O‘quv tizimi:*\n"
-                "1. Ta‘lim shakli: kunduzgi\n"
-                "2. O‘quv davri: 4 yil\n"
-                "3. Ta‘lim tizimi: Kredit-modul tizimi\n"
-                "4. Amaliyot: IT kompaniyalarida"
+                "*✉️ Murojaat:*\n"
+                "Savollaringiz bo‘lsa, quyidagi manzillar orqali murojaat qilishingiz mumkin:\n"
+                "• [CSU Admin](https://t.me/csu_admin)\n"
+                "• [Admission CU](https://t.me/ADMISSION_CU)"
             )
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
 
-        elif message.text == "💰 Grant va stipendiyalar":
+        elif message.text == "🎓 O‘quv tizimi va Grantlar":
             text = (
-                "*💰 Grantlar:*\n"
+                "*🎓 O‘quv tizimi va Grantlar:*\n"
                 "- 2025/2026 yili uchun 100 ta davlat granti\n"
-                "- Sanoat hamkorlari stipendiyalari"
+                "- Ta‘lim shakli: kunduzgi\n"
+                "- O‘quv davri: 4 yil\n"
+                "- Ta‘lim tizimi: Kredit-modul tizimi\n"
+                "- Amaliyot: IT kompaniyalarida"
             )
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
 

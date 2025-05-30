@@ -77,10 +77,10 @@ def reply_handler(message):
         elif message.text == "🎓 O‘quv tizimi":
             text = (
                 "*🎓 O‘quv tizimi:*\n"
-                "- 1 yil Foundation, 3 yil ta’lim\n"
-                "- Ingliz tilida o‘qitish\n"
-                "- Kredit-modul tizimi\n"
-                "- Amaliyot IT kompaniyalarda"
+                "1. Ta‘lim shakli: kunduzgi\n"
+                "2. O‘quv davri: 4 yil\n"
+                "3. Ta‘lim tizimi: Kredit-modul tizimi\n"
+                "4. Amaliyot: IT kompaniyalarida"
             )
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
 
@@ -101,13 +101,11 @@ def reply_handler(message):
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
 
         elif message.text == "📍 Joylashuv":
-            bot.send_message(
-                message.chat.id,
-                "📍 *Manzil:* Toshkent viloyati, Nurafshon shahri\n"
-                "[Xaritada ko‘rish](https://maps.app.goo.gl/tsgXZ2x8QUos6dSV7)",
-                parse_mode="Markdown",
-                reply_markup=main_menu_uz()
+            text = (
+                "*📍 Manzil:*\n"
+                "Toshkent viloyati, Nurafshon shahri, Yangiobod MFY, Yangiobod k., 42-uy"
             )
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
 
         elif message.text == "📞 Aloqa":
             text = (
@@ -121,7 +119,7 @@ def reply_handler(message):
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
 
         elif message.text == "↩️ Menyuga qaytish":
-            bot.send_message(message.chat.id, "Asosiy menyuga qaytildi.", reply_markup=main_menu_uz())
+            bot.send_message(message.chat.id, "🇺🇿 Tilni tanlang:", reply_markup=language_menu())
 
         else:
             bot.send_message(message.chat.id, "Iltimos, menyudan tanlang.", reply_markup=main_menu_uz())
@@ -156,10 +154,10 @@ def reply_handler(message):
         elif message.text == "🎓 Система обучения":
             text = (
                 "*🎓 Система обучения:*\n"
-                "- 1 год Foundation, 3 года обучения\n"
-                "- Обучение на английском\n"
-                "- Кредитно-модульная система\n"
-                "- Практика в IT-компаниях"
+                "1. Форма обучения: очная\n"
+                "2. Период обучения: 4 года\n"
+                "3. Система обучения: кредитно-модульная\n"
+                "4. Практика: в IT-компаниях"
             )
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
 
@@ -180,13 +178,11 @@ def reply_handler(message):
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
 
         elif message.text == "📍 Локация":
-            bot.send_message(
-                message.chat.id,
-                "📍 *Адрес:* Ташкентская область, город Нурафшан\n"
-                "[Посмотреть на карте](https://maps.app.goo.gl/tsgXZ2x8QUos6dSV7)",
-                parse_mode="Markdown",
-                reply_markup=main_menu_ru()
+            text = (
+                "*📍 Адрес:*\n"
+                "Ташкентская область, город Нурафшан, МФЙ Янгиобод, улица Янгиобод, дом 42"
             )
+            bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
 
         elif message.text == "📞 Контакты":
             text = (
@@ -200,7 +196,7 @@ def reply_handler(message):
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
 
         elif message.text == "↩️ Вернуться в меню":
-            bot.send_message(message.chat.id, "Возвращение в главное меню.", reply_markup=main_menu_ru())
+            bot.send_message(message.chat.id, "🇷🇺 Выберите язык:", reply_markup=language_menu())
 
         else:
             bot.send_message(message.chat.id, "Пожалуйста, выберите из меню.", reply_markup=main_menu_ru())

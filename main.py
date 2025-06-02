@@ -4,13 +4,13 @@ from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
 bot = telebot.TeleBot(os.getenv("TELEGRAM_TOKEN"))
 
-# Til menyusi
+# Language menu
 def language_menu():
     markup = ReplyKeyboardMarkup(resize_keyboard=True)
     markup.row("🇺🇿 O‘zbekcha", "🇷🇺 Русский")
     return markup
 
-# Asosiy menyu - O‘zbek
+# Main menu - Uzbek
 def main_menu_uz():
     markup = ReplyKeyboardMarkup(resize_keyboard=True)
     markup.row("ℹ️ Universitet haqida", "📚 Ta’lim yo‘nalishlari")
@@ -19,16 +19,16 @@ def main_menu_uz():
     markup.row("📞 Aloqa", "↩️ Menyuga qaytish")
     return markup
 
-# Asosiy menyu - Rus
+# Main menu - Russian
 def main_menu_ru():
     markup = ReplyKeyboardMarkup(resize_keyboard=True)
     markup.row("ℹ️ Об университете", "📚 Образовательные направления")
-    markup.row("🎓 Система обучения", "💰 Гранты и стипендии")
+    markup.row("✉️ Обращения", "🎓 Система обучения и Гранты")
     markup.row("🌐 Международное сотрудничество", "📍 Локация")
     markup.row("📞 Контакты", "↩️ Вернуться в меню")
     return markup
 
-# Tilni saqlash
+# Store user language
 user_language = {}
 
 @bot.message_handler(commands=['start'])
@@ -115,7 +115,6 @@ def reply_handler(message):
                 "☎️ Telefon: [+998 (55) 888-55-55](tel:+998558885555)\n"
                 "📱 Telefon: [+998 (95) 182-71-17](tel:+998951827117)\n"
                 "📘 Facebook: [Cyber University](https://www.facebook.com/share/1AUAavip98/?mibextid=wwXIfr)\n"
-                "📸 Instagram: [cyberuni.uz](https://www.instagram.com/cyberuni.uz?igsh=czN4bTRub3ExMGRp)\n"
                 "✈️ Telegram: [cyberuni_uz](https://t.me/cyberuni_uz)"
             )
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_uz())
@@ -153,21 +152,23 @@ def reply_handler(message):
             )
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
 
-        elif message.text == "🎓 Система обучения":
+        elif message.text == "✉️ Обращения":
             text = (
-                "*🎓 Система обучения:*\n"
-                "1. Форма обучения: очная\n"
-                "2. Период обучения: 4 года\n"
-                "3. Система обучения: кредитно-модульная\n"
-                "4. Практика: в IT-компаниях"
+                "*✉️ Обращения:*\n"
+                "Если у вас есть вопросы, вы можете обратиться по следующим контактам:\n"
+                "• [CSU Admin](https://t.me/csu_admin)\n"
+                "• [Admission CU](https://t.me/ADMISSION_CU)"
             )
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
 
-        elif message.text == "💰 Гранты и стипендии":
+        elif message.text == "🎓 Система обучения и Гранты":
             text = (
-                "*💰 Гранты и стипендии:*\n"
+                "*🎓 Система обучения и Гранты:*\n"
                 "- 100 государственных грантов на 2025/2026 год\n"
-                "- Стипендии от партнёров"
+                "- Форма обучения: очная\n"
+                "- Период обучения: 4 года\n"
+                "- Система обучения: кредитно-модульная\n"
+                "- Практика: в IT-компаниях"
             )
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
 
@@ -192,7 +193,6 @@ def reply_handler(message):
                 "☎️ Телефон: [+998 (55) 888-55-55](tel:+998558885555)\n"
                 "📱 Телефон: [+998 (95) 182-71-17](tel:+998951827117)\n"
                 "📘 Facebook: [Cyber University](https://www.facebook.com/share/1AUAavip98/?mibextid=wwXIfr)\n"
-                "📸 Instagram: [cyberuni.uz](https://www.instagram.com/cyberuni.uz?igsh=czN4bTRub3ExMGRp)\n"
                 "✈️ Telegram: [cyberuni_uz](https://t.me/cyberuni_uz)"
             )
             bot.send_message(message.chat.id, text, parse_mode="Markdown", reply_markup=main_menu_ru())
@@ -206,5 +206,5 @@ def reply_handler(message):
     else:
         bot.send_message(message.chat.id, "🇺🇿 Tilni tanlang / 🇷🇺 Выберите язык:", reply_markup=language_menu())
 
-# Ishga tushirish
+# Start polling
 bot.polling(non_stop=True)
